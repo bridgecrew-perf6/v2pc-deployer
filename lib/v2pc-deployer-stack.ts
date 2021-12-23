@@ -3,7 +3,7 @@ import { Construct } from 'constructs';
 // Modules
 import { loadConfigFile } from '../modules/config';
 // Resources
-import * as AwsVpc from "../resources/vpc";
+import * as AwsVpc from "../services/vpc";
 
 export class V2PcDeployerStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -14,5 +14,8 @@ export class V2PcDeployerStack extends Stack {
     if (config === undefined) {
       return;
     }
+
+    // Create vpc and vpc components
+    AwsVpc.createVpc(this, config.vpc);
   }
 }
