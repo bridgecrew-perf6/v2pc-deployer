@@ -1,0 +1,395 @@
+{
+  "vpc": {
+    "cidrBlock": "172.31.0.0/16",
+    "enableDnsHostnames": true,
+    "enableDnsSupport": true,
+    "endpoints": [
+      {
+        "id": "vpce-0cc46da2db28e15ae",
+        "policyDocument": "{\"Version\":\"2008-10-17\",\"Statement\":[{\"Effect\":\"Allow\",\"Principal\":\"*\",\"Action\":\"*\",\"Resource\":\"*\"}]}",
+        "routeTableIds": ["rtb-0aed839877cd33428"],
+        "securityGroupIds": [],
+        "serviceName": "com.amazonaws.ap-northeast-2.s3",
+        "subnetIds": [],
+        "privateDnsEnabled": false,
+        "tags": [],
+        "type": "Gateway"
+      },{
+        "id": "vpce-0f3127011971a0eb5",
+        "policyDocument": "{\n  \"Statement\": [\n    {\n      \"Action\": \"*\", \n      \"Effect\": \"Allow\", \n      \"Principal\": \"*\", \n      \"Resource\": \"*\"\n    }\n  ]\n}",
+        "routeTableIds": [],
+        "securityGroupIds": ["sg-018033c752fb3e1b5"],
+        "serviceName": "com.amazonaws.ap-northeast-2.monitoring",
+        "subnetIds": ["subnet-3063cc5b"],
+        "privateDnsEnabled": true,
+        "tags": [],
+        "type": "Interface"
+      },{
+        "id": "vpce-02935718661aa80d7",
+        "policyDocument": "{\n  \"Statement\": [\n    {\n      \"Action\": \"*\", \n      \"Effect\": \"Allow\", \n      \"Principal\": \"*\", \n      \"Resource\": \"*\"\n    }\n  ]\n}",
+        "routeTableIds": [],
+        "securityGroupIds": ["sg-018033c752fb3e1b5"],
+        "serviceName": "com.amazonaws.ap-northeast-2.logs",
+        "subnetIds": ["subnet-3063cc5b"],
+        "privateDnsEnabled": true,
+        "tags": [],
+        "type": "Interface"
+      },{
+        "id": "vpce-0300ef853d67b8585",
+        "policyDocument": "{\n  \"Statement\": [\n    {\n      \"Action\": \"*\", \n      \"Effect\": \"Allow\", \n      \"Principal\": \"*\", \n      \"Resource\": \"*\"\n    }\n  ]\n}",
+        "routeTableIds": [],
+        "securityGroupIds": ["sg-018033c752fb3e1b5"],
+        "serviceName": "com.amazonaws.ap-northeast-2.ecr.dkr",
+        "subnetIds": ["subnet-3063cc5b"],
+        "privateDnsEnabled": true,
+        "tags": [],
+        "type": "Interface"
+      }
+    ],
+    "id": "vpc-9eb904f5",
+    "instanceTenancy": "default",
+    "internetGateway": {
+      "id": "igw-1378187b",
+      "tags": [
+        {
+          "key": "Name",
+          "value": "dt-igw-1"
+        }
+      ]
+    },
+    "routeTables": [
+      {
+        "associations": [
+          {
+            "id": "rtbassoc-d6b130bc",
+            "subnetId": "subnet-3063cc5b"
+          }
+        ],
+        "id": "rtb-0aed839877cd33428",
+        "isDefault": true,
+        "routes": [
+          {
+            "destinationCidrBlock": "172.31.0.0/16",
+            "gatewayId": "local",
+            "origin": "CreateRouteTable"
+          }
+        ],
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dt-rtb-1"
+          }
+        ]
+      },{
+        "associations": [
+          {
+            "id": "rtbassoc-0e1ecb3241f5e5f3f",
+            "subnetId": "subnet-50cad91c"
+          } 
+        ],
+        "id": "rtb-892a50e2",
+        "isDefault": false,
+        "routes": [
+          {
+            "destinationCidrBlock": "172.31.0.0/16",
+            "gatewayId": "local",
+            "origin": "CreateRouteTable"
+          }, {
+            "destinationCidrBlock": "0.0.0.0/0",
+            "gatewayId": "igw-1378187b",
+            "origin": "CreateRoute"
+          }
+        ],
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dt-rtb-2"
+          }
+        ]
+      }
+    ],
+    "networkAcls": [
+      {
+        "associations": [
+          {
+            "id": "aclassoc-f3900f92",
+            "subnetId": "subnet-3063cc5b"
+          },{
+            "id": "aclassoc-f0900f91",
+            "subnetId": "subnet-50cad91c"
+          }
+        ],
+        "entries": [
+          {
+            "cidrBlock": "0.0.0.0/0",
+            "egress": true,
+            "protocol": "-1",
+            "ruleAction": "allow",
+            "ruleNumber": 100
+          },{
+            "cidrBlock": "0.0.0.0/0",
+            "egress": true,
+            "protocol": "-1",
+            "ruleAction": "deny",
+            "ruleNumber": 32767
+          },{
+            "cidrBlock": "0.0.0.0/0",
+            "egress": false,
+            "protocol": "-1",
+            "ruleAction": "allow",
+            "ruleNumber": 100
+          },{
+            "cidrBlock": "0.0.0.0/0",
+            "egress": false,
+            "protocol": "-1",
+            "ruleAction": "deny",
+            "ruleNumber": 32767
+          }
+        ],
+        "id": "acl-c8305ea3",
+        "isDefault": true,
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dt-acl-1"
+          }
+        ]
+      }
+    ],
+    "networkInterfaces": [
+      {
+        "allocationId": "eipalloc-07dfbaeb7a82829d5",
+        "associationId": "eipassoc-0b9343ec0344930d8",
+        "associatePublicIpAddress": "15.165.93.54",
+        "attachment": {
+          "_deleteOnTermination": true,
+          "deviceIndex": 0,
+          "id": "eni-attach-0fbd89e4456100268",
+          "instanceId": "i-0ec4bed06a36f5e0f"
+        },
+        "description": "test to create network interface",
+        "id": "eni-0ef9460107392e56b",
+        "_interfaceType": "interface",
+        "ipv6Addresses": [],
+        "privateIpAddresses": [
+          {
+            "primary": true,
+            "privateIpAddress": "172.31.8.69"
+          }
+        ],
+        "securityGroups": ["sg-00a22fcd12977972b"],
+        "sourceDestCheck": true,
+        "subnetId": "subnet-3063cc5b",
+        "tags": []
+      }
+    ],
+    "securityGroups": [
+      {
+        "description": "Private SAP server",
+        "egress": [
+            {
+            "destination": "0.0.0.0/0",
+            "description": "",
+            "protocol": "-1",
+            "type": "ipv4"
+          }
+        ],
+        "id": "sg-00a22fcd12977972b",
+        "ingress": [
+          {
+            "source": "211.205.5.0/24",
+            "description": "SAP HANA Host Agent SOAP/HTTP -  changed for global connection",
+            "fromPort": 1128,
+            "protocol": "tcp",
+            "toPort": 1128,
+            "type": "ipv4"
+          },{
+            "source": "0.0.0.0/0",
+            "description": "",
+            "fromPort": 22,
+            "protocol": "tcp",
+            "toPort": 22,
+            "type": "ipv4"
+          },{
+            "source": "211.205.5.0/24",
+            "description": "SAP HANA XS Web Dispatcher",
+            "fromPort": 8090,
+            "protocol": "tcp",
+            "toPort": 8090,
+            "type": "ipv4"
+          },{
+            "source": "0.0.0.0/0",
+            "description": "SAP HANA XS Web Dispatcher",
+            "fromPort": 8090,
+            "protocol": "tcp",
+            "toPort": 8090,
+            "type": "ipv4"
+          }
+        ],
+        "name": "dt-sg-1-name",
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dt-sg-1"
+          }
+        ]
+      },{
+        "description": "privacyDAM/privacyDAM-SecurityGroup-PrivateComm",
+        "egress": [
+          {
+            "destination": "0.0.0.0/0",
+            "description": "Allow all outbound traffic by default",
+            "protocol": "-1",
+            "type": "ipv4"
+          }
+        ],
+        "id": "sg-018033c752fb3e1b5",
+        "ingress": [
+          {
+            "description": "from 172.31.0.0/16:443",
+            "fromPort": 443,
+            "protocol": "tcp",
+            "source": "172.31.0.0/16",
+            "toPort": 443,
+            "type": "ipv4"
+          },{
+            "description": "For communication in private [using privacyDAM]",
+            "fromPort": 0,
+            "protocol": "udp",
+            "source": "sg-018033c752fb3e1b5",
+            "toPort": 65535,
+            "type": "securityGroup",
+            "userId": "395824177941"
+          },{
+            "description": "For communication in private [using privacyDAM]",
+            "fromPort": 0,
+            "protocol": "tcp",
+            "source": "sg-018033c752fb3e1b5",
+            "toPort": 65535,
+            "type": "securityGroup",
+            "userId": "395824177941"
+          }
+        ],
+        "name": "dt-sg-2-name",
+        "tags": [
+            {
+            "key": "Name",
+            "value": "dt-sg-2"
+          }
+        ]
+      }
+    ],
+    "subnets": [
+      {
+        "assignIpv6AddressOnCreation": false,
+        "availabilityZone": "ap-northeast-2a",
+        "cidrBlock": "172.31.0.0/24",
+        "id": "subnet-3063cc5b",
+        "mapPublicIpOnLaunch": true,
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dt-subnet-1"
+          },{
+            "key": "Creator",
+            "value": "Tim"
+          }
+        ]
+      },{
+        "assignIpv6AddressOnCreation": false,
+        "availabilityZone": "ap-northeast-2c",
+        "cidrBlock": "172.31.1.0/24",
+        "id": "subnet-50cad91c",
+        "mapPublicIpOnLaunch": true,
+        "tags": [
+          {
+            "key": "Name",
+            "value": "dt-subnet-2"
+          }
+        ]
+      }
+    ],
+    "tags": [
+      {
+        "key": "Name",
+        "value": "dt-vpc"
+      }
+    ]
+  },
+  "ebs": {
+    "vol-07894680ba02a5845": {
+      "availabilityZone": "ap-northeast-2a",
+      "deleteOnTermination": true,
+      "device": "/dev/sda1",
+      "encrypted": false,
+      "id": "vol-07894680ba02a5845",
+      "iops": 100,
+      "multiAttachEnabled": false,
+      "size": 16,
+      "tags": [
+        {
+          "key": "Name",
+          "value": "dt-volume-1"
+        }
+      ],
+      "volumeType": "gp2"
+    }
+  },
+  "ec2": [
+    {
+      "availabilityZone": "ap-northeast-2a",
+      "blockDeviceMappings": [
+        {
+          "id": "vol-07894680ba02a5845",
+          "type": "ebs"
+        }
+      ],
+      "cpuOptions": {
+        "coreCount": 1,
+        "threadsPerCore": 2
+      },
+      "ebsOptimized": true,
+      "enclaveOptions": {
+        "enabled": false
+      },
+      "hibernationOptions": {
+        "configured": false
+      },
+      "imageId": "ami-04876f29fd3a5e8ba",
+      "id": "i-0ec4bed06a36f5e0f",
+      "instanceType": "t3.micro",
+      "keyName": "tov_hmin",
+      "monitoring": false,
+      "networkInterfaces": [
+        {
+          "deleteOnTermination": true,
+          "description": "test to create network interface",
+          "deviceIndex": 0,
+          "id": "eni-0ef9460107392e56b",
+          "ipv6Addresses": [],
+          "privateIpAddresses": [
+            {
+              "primary": true,
+              "privateIpAddress": "172.31.8.69"
+            }
+          ],
+          "_associatePublicIpAddress": true,
+          "securityGroups": ["sg-00a22fcd12977972b"],
+          "subnetId": "subnet-3063cc5b",
+          "tags": []
+        }
+      ],
+      "privateIpAddress": "172.31.8.69",
+      "_securityGroups": ["sg-00a22fcd12977972b"],
+      "sourceDestCheck": true,
+      "_subnetId": "subnet-3063cc5b",
+      "tags": [
+        {
+          "key": "Name",
+          "value": "dt-instance-1"
+        }
+      ],
+      "tenancy": "default"
+    }
+  ]
+}
