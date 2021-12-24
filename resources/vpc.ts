@@ -47,7 +47,9 @@ export function appendNetworkAclEntry(scope: Construct, networkAclId: string, in
   // Set parameter for networkAcl entry
   const props: ec2.CfnNetworkAclEntryProps = {
     cidrBlock: config.cidrBlock,
+    egress: config.egress,
     networkAclId: networkAclId,
+    portRange: config.portRange,
     protocol: Number(config.protocol),
     ruleAction: config.ruleAction,
     ruleNumber: config.ruleNumber
@@ -120,11 +122,11 @@ export function createCfnNetworkAcl(scope: Construct, vpcId: string, config: any
  */
 export function createCfnNetworkInterface(scope: Construct, config: any): ec2.CfnNetworkInterface {
   // Extract a list of security group id
-  const securityGroups: string[] = config.securityGroups.map((id: string) => getResourceId(id));
+  const securityGroupIds: string[] = config.securityGroups.map((id: string) => getResourceId(id));
   // Set parameter for network interface
   const props: ec2.CfnNetworkInterfaceProps = {
     description: config.description,
-    groupSet: securityGroups,
+    groupSet: securityGroupIds,
     ipv6Addresses: config.ipv6Addresses,
     privateIpAddresses: config.privateIpAddresses,
     subnetId: getResourceId(config.subnetId),

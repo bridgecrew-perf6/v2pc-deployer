@@ -3,6 +3,11 @@ import { getResourceId } from "../modules/support";
 // Resources
 import * as ResourceVpc from "../resources/vpc";
 
+/**
+ * Create vpc
+ * @param scope context scope
+ * @param config vpc configuration
+ */
 export function createVpc(scope: Construct, config: any): void {
   // Create vpc
   const vpc = ResourceVpc.createCfnVpc(scope, config);
