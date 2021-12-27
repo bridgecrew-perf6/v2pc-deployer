@@ -287,6 +287,34 @@
             "value": "dt-sg-2"
           }
         ]
+      },{
+        "description": "database security group",
+        "egress": [
+          {
+            "destination": "0.0.0.0/0",
+            "description": "Allow all outbound traffic by default",
+            "protocol": "-1",
+            "type": "ipv4"
+          }
+        ],
+        "id": "sg-018033c752fb3e1b6",
+        "ingress": [
+          {
+            "description": "mysql ingress",
+            "fromPort": 3306,
+            "protocol": "tcp",
+            "source": "0.0.0.0/0",
+            "toPort": 3306,
+            "type": "ipv4"
+          }
+        ],
+        "name": "dt-sg-3-name",
+        "tags": [
+            {
+            "key": "Name",
+            "value": "dt-sg-3"
+          }
+        ]
       }
     ],
     "subnets": [
@@ -425,47 +453,23 @@
         "masterUsername": "admin",
         "maxAllocatedStorage": 100,
         "monitoringInterval": 0,
-        "preferredBackupWindow": "tue:14:33-tue:15:03"
+        "monitoringRoleArn": "",
+        "multiAz": false,
+        "port": 3306,
+        "preferredBackupWindow": "15:33-16:03",
+        "preferredMaintenanceWindow": "tue:14:33-tue:15:03",
+        "storageEncrypted": false,
+        "storageType": "gp2",
+        "tags": [],
+        "vpcSecurityGroups": ["sg-018033c752fb3e1b6"]
       }
     ]
-  }
-
-
-  [
+  },
+  "subnetGroups": [
     {
-      "cluster": {
-        "availabilityZones": [],
-        "engine": "mysql",
-        "id": "dt-"
-      },
-      "dbSubnetGroup": {
-        "description": "DBSubnetGroupDescription",
-        "name": "dt-db-subnet-1",
-        "subnetIds": ["subnet-3063cc5b","subnet-50cad91c"],
-        "tags": []
-      },
-      "instance": {
-        "allocatedStorage": 20,
-        "associatedRoles": [],
-        "availabilityZone": "ap-northeast-2a",
-        "backupRetentionPeriod": 123,
-        "cACertificateIdentifier": "",
-        "copyTagsToSnapshot": false,
-        "enableCloudwatchLogsExports": ["audit","error","general","slowquery"],
-        "dbInstanceClass": "db.t3.micron",
-        "deletionProtection": false,
-        "id": "dt-db-instance",
-        "masterUsername": "admin",
-        "maxAllocatedStorage": 100,
-        "monitoringInterval": 0,
-        "multiAz": false,
-        "preferredBackupWindow": "tue:14:33-tue:15:03",
-        "performanceInsightsEnabled": "",
-        "storageEncrypted": false,
-        "storageType": "gp2"
-      },
-      "vpcId": ""
+      "description": "test-subnet-group",
+      "name": "dt-db-sg-1",
+      "subnets": ["subnet-3063cc5b", "subnet-50cad91c"]
     }
   ]
-
 }

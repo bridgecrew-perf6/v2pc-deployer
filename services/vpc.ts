@@ -23,7 +23,7 @@ export function createVpc(scope: Construct, config: any): void {
   configureSecurityGroups(scope, config.securityGroups);
 
   // Create vpc endpoints
-  createVpcEndoints(scope, vpc.ref, config.endpoints);
+  createVpcEndoints(scope, config.endpoints);
 }
 
 /**
@@ -59,12 +59,11 @@ function createBasicVpcComponents(scope: Construct, vpcId: string, config: any) 
 /**
  * Create vpc endpoints
  * @param scope context scope
- * @param vpcId vpc resource id
  * @param config endpoints configuration
  */
-function createVpcEndoints(scope: Construct, vpcId: string, config: any) {
+function createVpcEndoints(scope: Construct, config: any) {
   for (const elem of config) {
-    ResourceVpc.createCfnVpcEndpoint(scope, vpcId, elem);
+    ResourceVpc.createCfnVpcEndpoint(scope, elem);
   }
 }
 

@@ -235,11 +235,10 @@ export function createCfnVpc(scope: Construct, config: any) {
 /**
  * Create cloudFormation resource for vpc endpoint
  * @param scope context scope
- * @param vpcId vpc resource id
  * @param config endpoint configuration
  * @returns cloudFormation resource for vpc endpoint
  */
-export function createCfnVpcEndpoint(scope: Construct, vpcId: string, config: any): ec2.CfnVPCEndpoint {
+export function createCfnVpcEndpoint(scope: Construct, config: any): ec2.CfnVPCEndpoint {
   // Extract a list of route table id
   const routeTables = config.routeTableIds.map((id: string) => getResourceId(id));
   // Extract a list of security group
@@ -255,8 +254,8 @@ export function createCfnVpcEndpoint(scope: Construct, vpcId: string, config: an
     securityGroupIds: securityGroups.length > 0 ? securityGroups : undefined,
     serviceName: config.serviceName,
     subnetIds: subnets.length > 0 ? subnets : undefined,
-    vpcEndpointType: config.type,
-    vpcId: vpcId
+    vpcEndpointType: config.vpcEndpointType,
+    vpcId: getResourceId(config.vpcId)
   };
   // Create cloudFormation resource for vpc endpoint
   const cfnVpcEndpoint = new ec2.CfnVPCEndpoint(scope, createHashId(config.id), props);
