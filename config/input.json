@@ -13,7 +13,8 @@
         "subnetIds": [],
         "privateDnsEnabled": false,
         "tags": [],
-        "type": "Gateway"
+        "vpcEndpointType": "Gateway",
+        "vpcId": "vpc-9eb904f5"
       },{
         "id": "vpce-0f3127011971a0eb5",
         "policyDocument": "{\n  \"Statement\": [\n    {\n      \"Action\": \"*\", \n      \"Effect\": \"Allow\", \n      \"Principal\": \"*\", \n      \"Resource\": \"*\"\n    }\n  ]\n}",
@@ -23,7 +24,8 @@
         "subnetIds": ["subnet-3063cc5b"],
         "privateDnsEnabled": true,
         "tags": [],
-        "type": "Interface"
+        "vpcEndpointType": "Interface",
+        "vpcId": "vpc-9eb904f5"
       },{
         "id": "vpce-02935718661aa80d7",
         "policyDocument": "{\n  \"Statement\": [\n    {\n      \"Action\": \"*\", \n      \"Effect\": \"Allow\", \n      \"Principal\": \"*\", \n      \"Resource\": \"*\"\n    }\n  ]\n}",
@@ -33,7 +35,8 @@
         "subnetIds": ["subnet-3063cc5b"],
         "privateDnsEnabled": true,
         "tags": [],
-        "type": "Interface"
+        "vpcEndpointType": "Interface",
+        "vpcId": "vpc-9eb904f5"
       },{
         "id": "vpce-0300ef853d67b8585",
         "policyDocument": "{\n  \"Statement\": [\n    {\n      \"Action\": \"*\", \n      \"Effect\": \"Allow\", \n      \"Principal\": \"*\", \n      \"Resource\": \"*\"\n    }\n  ]\n}",
@@ -43,7 +46,8 @@
         "subnetIds": ["subnet-3063cc5b"],
         "privateDnsEnabled": true,
         "tags": [],
-        "type": "Interface"
+        "vpcEndpointType": "Interface",
+        "vpcId": "vpc-9eb904f5"
       }
     ],
     "id": "vpc-9eb904f5",
@@ -434,7 +438,7 @@
     "clusters": [],
     "instances": [
       {
-        "allocatedStorage": 20,
+        "allocatedStorage": "20",
         "associatedRoles": [],
         "autoMinorVersionUpgrade": true,
         "backupRetentionPeriod": 10,
@@ -451,6 +455,7 @@
         "engineVersion": "8.0.20",
         "_iops": 100,
         "masterUsername": "admin",
+        "masterUserPassword": "qlalfqjsgh",
         "maxAllocatedStorage": 100,
         "monitoringInterval": 0,
         "monitoringRoleArn": "",
@@ -463,13 +468,13 @@
         "tags": [],
         "vpcSecurityGroups": ["sg-018033c752fb3e1b6"]
       }
+    ],
+    "dbSubnetGroups": [
+      {
+        "description": "test-subnet-group",
+        "name": "dt-db-sg-1",
+        "subnetIds": ["subnet-3063cc5b", "subnet-50cad91c"]
+      }
     ]
-  },
-  "subnetGroups": [
-    {
-      "description": "test-subnet-group",
-      "name": "dt-db-sg-1",
-      "subnets": ["subnet-3063cc5b", "subnet-50cad91c"]
-    }
-  ]
+  }
 }

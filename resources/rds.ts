@@ -18,7 +18,6 @@ export function createCfnDBSubnetGroup(scope: Construct, config: any): rds.CfnDB
     dbSubnetGroupDescription: config.description,
     dbSubnetGroupName: config.name,
     subnetIds: subnetIds,
-    tags: config.tags !== undefined ? config.tags : undefined
   };
   // Create cloudFormation resource for db subnet group
   const cfnDBSubnetGroup = new rds.CfnDBSubnetGroup(scope, createHashId(JSON.stringify(props)), props);
@@ -37,9 +36,9 @@ export function createCfnDBSubnetGroup(scope: Construct, config: any): rds.CfnDB
  */
 export function createCfnDBInstance(scope: Construct, config: any): rds.CfnDBInstance {
   // Extract a list of security group id (for dbSecurityGroup)
-  const dbSecurityGroups: string[]|undefined = config.dbSecurityGroups !== undefined ? config.dbSecurityGroups.map((id: string) => getResourceId(id)) : undefined;
+  const dbSecurityGroups: string[]|undefined = config.dbSecurityGroups.length > 0 ? config.dbSecurityGroups.map((id: string) => getResourceId(id)) : undefined;
   // Extract a list of security group id (for vpcSecurityGroup)
-  const vpcSecurityGroups: string[]|undefined = config.vpcSecurityGroups !== undefined ? config.vpcSecurityGroups.map((id: string) => getResourceId(id)) : undefined;
+  const vpcSecurityGroups: string[]|undefined = config.vpcSecurityGroups.length > 0 ? config.vpcSecurityGroups.map((id: string) => getResourceId(id)) : undefined;
   // Set avaliability zone
   let availabilityZone: string|undefined = undefined;
   if (!config.multiAz) {
@@ -70,18 +69,20 @@ export function createCfnDBInstance(scope: Construct, config: any): rds.CfnDBIns
       availabilityZone: availabilityZone,
       backupRetentionPeriod: Number(config.backupRetentionPeriod),
       characterSetName: config.characterSetName,
-      copyTagsToSnapshot: config.copyTagsToSnapshot,  // dbSecurityGroup 지정 시, 안보낼수있음
+      copyTagsToSnapshot: config.copyTagsToSnapshot,
       dbInstanceClass: config.dbInstanceClass,
-      dbInstanceIdentifier: config.dbInstanceIdentifier,  // dbSecurityGroup 지정 시, 안보낼수있음
+      dbInstanceIdentifier: config.dbInstanceIdentifier,
       deleteAutomatedBackups: config.deleteAutomatedBackups,
       deletionProtection: config.deletionProtection,
       dbSecurityGroups: dbSecurityGroups,
+      dbSubnetGroupName: getResourceId(config.dbSubnetGroupName),
       enableCloudwatchLogsExports: config.enableCloudwatchLogsExports,
       engine: config.engine,
       engineVersion: config.engineVersion,
       iops: config.storageType === "io" ? config.iops : undefined,
       kmsKeyId: config.kmsKeyId,
       masterUsername: config.masterUsername,
+      masterUserPassword: config.masterUserPassword,
       maxAllocatedStorage: Number(config.maxAllocatedStorage),
       monitoringInterval: config.monitoringInterval,
       monitoringRoleArn: config.monitoringInterval !== 0 && config.monitoringInterval ? config.monitoringRoleArn : undefined,

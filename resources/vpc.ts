@@ -240,11 +240,14 @@ export function createCfnVpc(scope: Construct, config: any) {
  */
 export function createCfnVpcEndpoint(scope: Construct, config: any): ec2.CfnVPCEndpoint {
   // Extract a list of route table id
-  const routeTables = config.routeTableIds.map((id: string) => getResourceId(id));
+  const routeTables: string[] = config.routeTableIds.map((id: string) => getResourceId(id));
   // Extract a list of security group
-  const securityGroups = config.securityGroupIds.map((id: string) => getResourceId(id));
+  const securityGroups: string[] = config.securityGroupIds.map((id: string) => getResourceId(id));
   // Extract a lisf of subnet id
-  const subnets = config.subnetIds.map((id: string) => getResourceId(id));
+  let subnets: string[] = [];
+  if (config.vpcEndpointType === "Interface" || config.vpcEndpointType === "GatewayLoadBalancer") {
+    config.subnetIds.map((id: string) => getResourceId(id));
+  }
 
   // Set properties
   const props: ec2.CfnVPCEndpointProps = {

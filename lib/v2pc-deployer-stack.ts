@@ -4,6 +4,7 @@ import { Construct } from 'constructs';
 import { loadConfigFile } from '../modules/config';
 // Resources
 import * as AwsVpc from "../services/vpc";
+import * as AwsRds from "../services/rds";
 
 export class V2PcDeployerStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -17,5 +18,8 @@ export class V2PcDeployerStack extends Stack {
 
     // Create vpc and vpc components
     AwsVpc.createVpc(this, config.vpc);
+
+    // Create rds
+    AwsRds.createRds(this, config.rds);
   }
 }
